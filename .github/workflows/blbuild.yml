@@ -39,12 +39,14 @@ jobs:
           cmake -DWITH_CYCLES=OFF -DWITH_BUILDINFO=OFF -DWITH_INTERNATIONAL=OFF -DWITH_LIBMV=OFF -DWITH_MOD_OCEANSIM=OFF -DWITH_USD=FALSE -DCMAKE_C_FLAGS="-mno-sse4.1 -mno-sse4.2 -mno-ssse3 -mno-avx -mno-avx2 -march=amdfam10" -DCMAKE_CXX_FLAGS="-mno-sse4.1 -mno-sse4.2 -mno-ssse3 -mno-avx -mno-avx2 -march=amdfam10" -G Ninja ..
       - name: Build blender
         working-directory: ./blender/build
-        run: ninja
+        run: |
+          ninja
+          ninja install
       - name: Save build artifacts
         uses: actions/upload-artifact@v4
         with:
           name: 'blender-build'
-          path: blender/build/bin
+          path: blender/build/
           retention-days: 1
           
           
