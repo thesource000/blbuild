@@ -20,20 +20,20 @@ jobs:
         uses: actions/setup-python@v6.3.0
         with:
           python-version: '3.13'
+      - name: Install build dependencies
+        working-directory: ./blender
+        run: sudo apt-get install -y g++ ninja make cmake git git-lfs subversion libx11-dev libxxf86vm-dev libxcursor-dev libxi-dev libxrandr-dev libxinerama-dev libegl-dev libwayland-dev wayland-protocols libxkbcommon-dev libdbus-1-dev linux-libc-dev
       - name: Clone the blender repository
         run: git clone -b blender-v5.1-release https://projects.blender.org/blender/blender
       - name: Update the local repository
         working-directory: ./blender
         run: make update
-      - name: Install build dependencies
-        working-directory: ./blender
-        run: sudo apt-get install -y g++ make cmake git git-lfs subversion libx11-dev libxxf86vm-dev libxcursor-dev libxi-dev libxrandr-dev libxinerama-dev libegl-dev libwayland-dev wayland-protocols libxkbcommon-dev libdbus-1-dev linux-libc-dev
       - name: Set up the build files
         working-directory: ./blender
         run: |
           mkdir build
           cd build
-          cmake -DWITH_CYCLES=OFF -DWITH_BUILDINFO=OFF -DWITH_INTERNATIONAL=OFF -DWITH_LIBMV=OFF -DWITH_MOD_OCEANSIM=OFF -DWITH_USD=FALSE -DCMAKE_C_FLAGS="-mno-sse4.1 -mno-sse4.2 -mno-ssse3 -mno-avx -mno-avx2 -march=amdfam10" -DCMAKE_CXX_FLAGS="-mno-sse4.1 -mno-sse4.2 -mno-ssse3 -mno-avx -mno-avx2 -march=amdfam10" -G ninja ..
+          cmake -DWITH_CYCLES=OFF -DWITH_BUILDINFO=OFF -DWITH_INTERNATIONAL=OFF -DWITH_LIBMV=OFF -DWITH_MOD_OCEANSIM=OFF -DWITH_USD=FALSE -DCMAKE_C_FLAGS="-mno-sse4.1 -mno-sse4.2 -mno-ssse3 -mno-avx -mno-avx2 -march=amdfam10" -DCMAKE_CXX_FLAGS="-mno-sse4.1 -mno-sse4.2 -mno-ssse3 -mno-avx -mno-avx2 -march=amdfam10" -G Ninja ..
       - name: Build blender
         working-directory: ./blender/build
         run: ninja
