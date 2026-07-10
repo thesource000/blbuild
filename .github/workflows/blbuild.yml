@@ -36,7 +36,7 @@ jobs:
           sed -i "s/exit(-1)//g" source/blender/cpucheck/cpu_check.cc
           mkdir build
           cd build
-          cmake -DWITH_CLANG=ON -DWITH_CYCLES=OFF -DWITH_BUILDINFO=OFF -DWITH_INTERNATIONAL=OFF -DWITH_LIBMV=OFF -DWITH_MOD_OCEANSIM=OFF -DWITH_USD=FALSE -DCMAKE_C_FLAGS="-mno-sse4.1 -mno-sse4.2 -mno-ssse3 -mno-avx -mno-avx2 -march=amdfam10" -DCMAKE_CXX_FLAGS="-mno-sse4.1 -mno-sse4.2 -mno-ssse3 -mno-avx -mno-avx2 -march=amdfam10" -G Ninja ..
+          cmake -DWITH_CYCLES=OFF -DWITH_BUILDINFO=OFF -DWITH_INTERNATIONAL=OFF -DWITH_LIBMV=OFF -DWITH_MOD_OCEANSIM=OFF -DWITH_USD=FALSE -DCMAKE_C_FLAGS="-mno-sse4.1 -mno-sse4.2 -mno-ssse3 -mno-avx -mno-avx2 -march=amdfam10" -DCMAKE_CXX_FLAGS="-mno-sse4.1 -mno-sse4.2 -mno-ssse3 -mno-avx -mno-avx2 -march=amdfam10" -G Ninja ..
       - name: Build blender
         working-directory: ./blender/build
         run: ninja
