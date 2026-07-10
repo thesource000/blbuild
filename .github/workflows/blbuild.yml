@@ -1,0 +1,47 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Build Blender
+
+# Controls when the workflow will run
+on:
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Setup Python
+        uses: actions/setup-python@v6.3.0
+        with:
+          python-version: '3.13'
+      - name: Clone the blender repository
+        run: git clone -b blender-v5.1-release https://projects.blender.org/blender/blender
+      - name: Install build dependencies
+        working-directory: ./blender
+        run: sudo ./build_files/linux/install_linux_packages.py --all --yes
+      - name: Update the local repository
+        working-directory: ./blender
+        run: make update
+      - name: Set up the build files
+        working-directory: ./blender
+        run: |
+          mkdir build
+          cd build
+          cmake -DWITH_CYCLES=OFF -DWITH_BUILDINFO=OFF -DWITH_INTERNATIONAL=OFF -DWITH_LIBMV=OFF -DWITH_MOD_OCEANSIM=OFF -DWITH_USD=FALSE -DCMAKE_C_FLAGS="-mno-sse4.1 -mno-sse4.2 -mno-ssse3 -mno-avx -mno-avx2 -march=amdfam10" -DCMAKE_CXX_FLAGS="-mno-sse4.1 -mno-sse4.2 -mno-ssse3 -mno-avx -mno-avx2 -march=amdfam10" -G ninja ..
+      - name: Build blender
+        working-directory: ./blender/build
+        run: ninja
+      - name: Save build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: 'blender-build'
+          path: ./blender/build/bin
+          retention-days: 1
+          
+          
