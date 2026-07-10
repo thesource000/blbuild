@@ -21,7 +21,7 @@ jobs:
         with:
           python-version: '3.13'
       - name: Install build dependencies
-        run: sudo apt-get install -y g++ ninja make cmake git git-lfs subversion libx11-dev libxxf86vm-dev libxcursor-dev libxi-dev libxrandr-dev libxinerama-dev libegl-dev libwayland-dev wayland-protocols libxkbcommon-dev libdbus-1-dev linux-libc-dev
+        run: sudo apt-get install -y g++ ninja-build make cmake git git-lfs subversion libx11-dev libxxf86vm-dev libxcursor-dev libxi-dev libxrandr-dev libxinerama-dev libegl-dev libwayland-dev wayland-protocols libxkbcommon-dev libdbus-1-dev linux-libc-dev
       - name: Clone the blender repository
         run: git clone -b blender-v5.1-release https://projects.blender.org/blender/blender
       - name: Update the local repository
