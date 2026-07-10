@@ -24,7 +24,7 @@ jobs:
         run: git clone -b blender-v5.1-release https://projects.blender.org/blender/blender
       - name: Install build dependencies
         working-directory: ./blender
-        run: sudo python3 ./build_files/linux/install_linux_packages.py --all --yes
+        run: sudo python3 build_files/linux/install_linux_packages.py --all --yes
       - name: Update the local repository
         working-directory: ./blender
         run: make update
@@ -41,7 +41,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: 'blender-build'
-          path: ./blender/build/bin
+          path: blender/build/bin
           retention-days: 1
           
           
